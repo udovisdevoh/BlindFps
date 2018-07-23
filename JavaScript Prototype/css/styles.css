@@ -1,0 +1,172 @@
+﻿* 
+{
+	margin:0;
+	padding:0;
+	border:0;
+}
+
+body
+{
+	background-color:#000;
+}
+
+#waveStar
+{
+}
+
+#waveStar #mainScreen
+{
+	height:700px;
+	width:100%;
+	background-image:url('../images/floorCeiling.png');
+	background-repeat:repeat-x;
+	overflow:hidden;
+}
+
+#waveStar .Column
+{
+	position:absolute;
+	background-color:#FFF;
+	color:#FFF;
+	height:100px;
+}
+
+#waveStar .Tile
+{
+	position:absolute;
+	z-index:1;
+}
+
+#waveStar .Player2D
+{
+	position:absolute;
+	z-index:2;
+	background-color:#F00;
+	width:1px;
+	height:1px;
+}
+
+#waveStar .AngleInfo
+{
+	position:absolute;
+	z-index:2;
+	right:100px;
+}
+
+#waveStar .JumpHeightInfo
+{
+	position:absolute;
+	z-index:2;
+	right:100px;
+	top:20px;
+}
+
+#waveStar .AttackCycleInfo
+{
+	position:absolute;
+	z-index:2;
+	right:100px;
+	top:40px;
+}
+
+#waveStar .HealthInfo2D
+{
+	position:absolute;
+	z-index:2;
+	right:100px;
+	top:60px;
+}
+
+#waveStar .HudStats
+{
+	position:fixed;
+	z-index:2;
+	font-family:Comic Sans MS, Comic Sans MS5, cursive;
+	font-size:36px;
+	color:#F00;
+}
+
+#waveStar .HudLabel
+{
+	position:fixed;
+	z-index:2;
+	font-family:Arial Black;
+	font-size:14px;
+	color:#888;
+}
+
+#waveStar .RayTracerPoint
+{
+	position:absolute;
+	z-index:2;
+	background-color:#00F;
+}
+
+#waveStar .SpritePoint
+{
+	position:absolute;
+	z-index:2;
+	background-color:#0F0;
+}
+
+#waveStar .HudWeapon
+{
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:1001;
+}
+
+#waveStar #punch001
+{
+	position:fixed;
+	background-image:url('../images/punch001.png');
+	width:342px;
+	height:282px;
+}
+
+#waveStar #punch002
+{
+	position:fixed;
+	background-image:url('../images/punch002.png');
+	width:504px;
+	height:383px;
+}
+
+#waveStar #kick001
+{
+	position:fixed;
+	background-image:url('../images/kick001.png');
+	width:589px;
+	height:214px;
+}
+
+#waveStar #kick002
+{
+	position:fixed;
+	background-image:url('../images/kick002.png');
+	width:546px;
+	height:259px;
+}
+
+#waveStar #kick003
+{
+	position:fixed;
+	background-image:url('../images/kick003.png');
+	width:529px;
+	height:283px;
+}
+
+#waveStar #block001
+{
+	position:fixed;
+	background-image:url('../images/block001.png');
+	width:216px;
+	height:438px;
+}
+
+#waveStar img.Sprite
+{
+	position:absolute;
+	visibility:hidden;
+}
