@@ -154,7 +154,7 @@ namespace CvmFight
         {
             if (isHideMouseCursor)
             {
-                //Cursor.Hide();
+                Mouse.ShowCursor = false;
             }
 
             Events.TargetFps = targetFps;
@@ -370,7 +370,7 @@ namespace CvmFight
 
             if (isHideMouseCursor)
             {
-                Cursor.Position = screenCenterPosition;
+                Mouse.MousePosition = screenCenterPosition;
             }
         }
 
