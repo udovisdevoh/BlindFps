@@ -48,7 +48,7 @@ namespace CvmFight
         /// <summary>
         /// How many enemies
         /// </summary>
-        private const int monsterCount = 10;
+        private const int monsterCount = 0;
 
         /// <summary>
         /// Whether we hide mouse cursor
@@ -152,14 +152,9 @@ namespace CvmFight
         #region Public Methods and event handlers
         public void Start()
         {
-            if (isSoundOn)
-            {
-                gameViewer.SoundManager.PlayRandomMusic();
-            }
-
             if (isHideMouseCursor)
             {
-                Cursor.Hide();
+                //Cursor.Hide();
             }
 
             Events.TargetFps = targetFps;
@@ -169,7 +164,6 @@ namespace CvmFight
             Events.MouseMotion += OnMouseMotion;
             Events.MouseButtonDown += OnMouseDown;
             Events.MouseButtonUp += OnMouseUp;
-            Events.MusicFinished += OnMusicFinished;
             Events.Run();
         }
 
@@ -224,9 +218,6 @@ namespace CvmFight
             {
                 world.CurrentPlayer.IsNeedToJumpAgain = false;
             }
-
-
-
 
             //We manage attack buttons
             if (inputState.IsPressMouseButtonLeft)
@@ -368,8 +359,14 @@ namespace CvmFight
 
         public void OnMouseMotion(object sender, MouseMotionEventArgs args)
         {
-            inputState.MouseMotionX = args.RelativeX;
-            inputState.MouseMotionY = args.RelativeY;
+            short relativeX = (short)(inputState.CurrentX - args.X);
+            short relativeY = (short)(inputState.CurrentY - args.Y);
+
+            inputState.CurrentX = args.X;
+            inputState.CurrentY = args.Y;
+
+            inputState.MouseMotionX = relativeX;
+            inputState.MouseMotionY = relativeY;
 
             if (isHideMouseCursor)
             {
@@ -395,11 +392,6 @@ namespace CvmFight
                 inputState.IsPressMouseButtonRight = false;
             else if (args.Button == MouseButton.MiddleButton)
                 inputState.IsPressMouseButtonCenter = false;
-        }
-
-        public void OnMusicFinished(object sender, MusicFinishedEventArgs args)
-        {
-            gameViewer.SoundManager.PlayRandomMusic();
         }
         #endregion
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CvmFight</RootNamespace>
     <AssemblyName>CvmFight</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
@@ -18,6 +18,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +38,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="artificialart, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -108,7 +111,6 @@
     <Compile Include="CvmFight\Viewers\GameViewer3D\ColumnViewer.cs" />
     <Compile Include="CvmFight\Viewers\GameViewer3D\Hud\Hud.cs" />
     <Compile Include="CvmFight\Viewers\GameViewer3D\SoundManager\CachedSound.cs" />
-    <Compile Include="CvmFight\Viewers\GameViewer3D\SoundManager\MusicManager.cs" />
     <Compile Include="CvmFight\Viewers\GameViewer3D\SpriteViewer\EnergyBarViewer.cs" />
     <Compile Include="CvmFight\Viewers\GameViewer3D\SpriteViewer\SpriteCache3D.cs" />
     <Compile Include="CvmFight\Viewers\GameViewer3D\SpriteViewer\SpriteCache3DBuilder.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="CvmFight\Viewers\MiniMap\MiniMap.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="CvmFight\Assets\Maps\CvmMap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -145,69 +148,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="CvmFight\Assets\Hud\punch002.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Musics\iCanFeelItHey.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Musics\WaveBuilder - Epic JediHads.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Musics\WaveBuilder - Gypsy Orion.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Musics\WaveBuilder - Made in indonesia.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Musics\WaveBuilder - MadeInJapan.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\Block.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\Charge.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\FastAttempt.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\FastHit.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\Jump.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\Ko.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\Perfect.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\SpinAttack.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\SpinCharge.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\SpinChargeEnemy.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\StrongKickAttempt.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\StrongKickHit.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\StrongPunchAttempt.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\StrongPunchHit.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\YouLose.ogg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="CvmFight\Assets\Sounds\YouWin.ogg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="CvmFight\Assets\Sprites\Aladdin\AladdinBackCrouch.png">

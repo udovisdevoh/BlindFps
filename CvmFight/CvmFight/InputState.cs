@@ -100,6 +100,9 @@ namespace CvmFight
             get { return currentMouseRelativeY; }
             set { currentMouseRelativeY = value; }
         }
+
+        public short CurrentX { get; internal set; }
+        public short CurrentY { get; internal set; }
         #endregion
     }
 }
