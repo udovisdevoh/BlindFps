@@ -28,36 +28,23 @@ namespace CvmFight
 
         private ColumnViewer columnViewer;
 
-        private SpriteViewer3D spriteViewer;
-
         private Gradient gradient;
 
         private MiniMap minimap;
-
-        private SoundManager soundManager;
-
-        private Hud hud;
 
         private Random random;
         #endregion
 
         #region Constructor
-        public GameViewer3D(Surface mainSurface, int screenWidth, int screenHeight, int columnCount, SpritePool spritePool, int fov, bool isEnableSpriteCache, Random random, bool isEnableLazySpriteImageLoad, AbstractMap map, bool isSoundOn)
+        public GameViewer3D(Surface mainSurface, int screenWidth, int screenHeight, int columnCount, SpritePool spritePool, int fov, Random random, AbstractMap map, bool isSoundOn)
         {
             this.mainSurface = mainSurface;
             this.isSoundOn = isSoundOn;
             this.random = random;
             minimap = new MiniMap(screenWidth, screenHeight, map);
 
-            if (isSoundOn)
-                soundManager = new SoundManager(random);
-
-            hud = new Hud(screenWidth, screenHeight);
-
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
-
-            spriteViewer = new SpriteViewer3D(screenWidth, screenHeight, spritePool, fov, heightDistanceRatio, isEnableSpriteCache, isEnableLazySpriteImageLoad, random);
 
             this.gradient = new Gradient(screenWidth, screenHeight * 2);
 
@@ -68,9 +55,6 @@ namespace CvmFight
         #region Public Methods
         public override void Update(World world, RayTracer rayTracer)
         {
-            if (isSoundOn)
-                soundManager.Update(world.CurrentPlayer, world.CurrentPlayer);
-
             int receivedAttackCycle = world.CurrentPlayer.ReceivedAttackCycle.GetCycleState();
             if (receivedAttackCycle > 0 && (receivedAttackCycle == 0 || (random.Next(6) == 0)))
             {
@@ -83,32 +67,11 @@ namespace CvmFight
 
                 columnViewer.Update(world.CurrentPlayer, rayTracer, world.Map, mainSurface);
 
-                //We display the sprites
-                world.SpritePool.SortByDistance(world.CurrentPlayer);
-                foreach (AbstractHumanoid sprite in world.SpritePool)
-                {
-                    if (sprite != world.CurrentPlayer && world.SharedConsciousness.IsSpriteViewable(world.CurrentPlayer, sprite, world.Map, rayTracer.Fov))
-                    {
-                        spriteViewer.View(world.CurrentPlayer, sprite, mainSurface);
-                        if (isSoundOn)
-                        {
-                            soundManager.Update(sprite, world.CurrentPlayer);
-                        }
-                    }
-                }
-
-                hud.Update(world.CurrentPlayer, mainSurface);
-
                 if (isMiniMapOn)
                     minimap.Update(world, rayTracer, mainSurface);
             }
 
             mainSurface.Update();
-        }
-
-        public override void DirthenHud()
-        {
-            hud.Dirthen();
         }
         #endregion
 
@@ -117,11 +80,6 @@ namespace CvmFight
         {
             get { return isMiniMapOn; }
             set { isMiniMapOn = value; }
-        }
-
-        public override SoundManager SoundManager
-        {
-            get { return soundManager; }
         }
         #endregion
     }

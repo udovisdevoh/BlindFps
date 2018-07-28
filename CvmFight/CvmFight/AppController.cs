@@ -9,6 +9,8 @@ using SdlDotNet.Input;
 using SdlDotNet.Audio;
 using System.Windows.Forms;
 using System.Threading;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace CvmFight
 {
@@ -59,16 +61,6 @@ namespace CvmFight
         /// Whether we play in full screen
         /// </summary>
         private const bool isFullScreen = false;
-
-        /// <summary>
-        /// Whether we cache sprites
-        /// </summary>
-        private const bool isEnableSpriteCache = false;
-
-        /// <summary>
-        /// Whether we load sprites only when first needed
-        /// </summary>
-        private const bool isEnableLazySpriteImageLoad = false;
 
         /// <summary>
         /// Whether we enable sound effects and music
@@ -144,7 +136,7 @@ namespace CvmFight
             world = new World(random, monsterCount);
             ai = new Ai(random,world.SpritePool.Count);
 
-            gameViewer = new GameViewer3D(mainSurface, screenWidth, screenHeight, rayTracer.ColumnCount, world.SpritePool, rayTracer.Fov, isEnableSpriteCache, random, isEnableLazySpriteImageLoad, world.Map, isSoundOn);
+            gameViewer = new GameViewer3D(mainSurface, screenWidth, screenHeight, rayTracer.ColumnCount, world.SpritePool, rayTracer.Fov, random, world.Map, isSoundOn);
             screenCenterPosition = new Point(screenWidth / 2, screenHeight / 2);
         }
         #endregion
@@ -152,10 +144,7 @@ namespace CvmFight
         #region Public Methods and event handlers
         public void Start()
         {
-            if (isHideMouseCursor)
-            {
-                Mouse.ShowCursor = false;
-            }
+            Mouse.ShowCursor = !isHideMouseCursor;
 
             Events.TargetFps = targetFps;
             Events.Tick += Update;
@@ -175,14 +164,12 @@ namespace CvmFight
             double timeDelta = ((TimeSpan)(DateTime.Now - previousFrameTime)).TotalMilliseconds / 16.0;
             previousFrameTime = DateTime.Now;
 
-
             //We clear the sprite's shared consciousness because sprite positions changed
             world.SharedConsciousness.Clear();
 
             //We update the sprites
             foreach (AbstractSprite sprite in world.SpritePool)
                 sprite.Update(timeDelta, world.SpritePool, world.Map);
-
 
             if (inputState.IsPressUp != inputState.IsPressDown)
             {
@@ -288,8 +275,6 @@ namespace CvmFight
                 }
             }
 
-
-
             //We animate the sprites using the AI
             foreach (AbstractHumanoid sprite in world.SpritePool)
                 if (sprite != world.CurrentPlayer)
@@ -299,8 +284,7 @@ namespace CvmFight
             battleManager.Update(world.SpritePool, world.SharedConsciousness, world.CurrentPlayer);
 
             //We perform damage logic
-            bool isNeedRefreshHud;
-            damageManager.Update(world.SpritePool, world.CurrentPlayer, world.Map, timeDelta, out isNeedRefreshHud);
+            damageManager.Update(world.SpritePool, world.CurrentPlayer, world.Map, timeDelta);
 
 
             rayTracer.Trace(world.CurrentPlayer, world.Map);
@@ -313,12 +297,6 @@ namespace CvmFight
             inputState.MouseMotionY = 0;
 
             gameViewer.Update(world, rayTracer);
-
-            if (isNeedRefreshHud)
-            {
-                gameViewer.DirthenHud();
-                world.Spawner.TryRespawn(world.SpritePool, world.Map);
-            }
         }
 
         public void OnKeyboardDown(object sender, KeyboardEventArgs args)
@@ -357,21 +335,15 @@ namespace CvmFight
                 Events.QuitApplication();
         }
 
-        public void OnMouseMotion(object sender, MouseMotionEventArgs args)
+        private void OnMouseMotion(object sender, MouseMotionEventArgs mouseEventArgs)
         {
-            short relativeX = (short)(inputState.CurrentX - args.X);
-            short relativeY = (short)(inputState.CurrentY - args.Y);
-
-            inputState.CurrentX = args.X;
-            inputState.CurrentY = args.Y;
+            short relativeX = mouseEventArgs.RelativeX;// (short)(inputState.CurrentX - mouseEventArgs.X);
+            short relativeY = mouseEventArgs.RelativeY;// (short)(inputState.CurrentY - mouseEventArgs.Y);
 
             inputState.MouseMotionX = relativeX;
             inputState.MouseMotionY = relativeY;
 
-            if (isHideMouseCursor)
-            {
-                Mouse.MousePosition = screenCenterPosition;
-            }
+            Mouse.MousePosition = this.screenCenterPosition;
         }
 
         public void OnMouseDown(object sender, MouseButtonEventArgs args)
