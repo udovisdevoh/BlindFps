@@ -25,10 +25,12 @@ namespace BlindFPS
         private Rectangle[] rectangleCache;
 
         private EcholocationCycle echolocationCycle;
+
+        private EcholocationBeeper echolocationBeeper;
         #endregion
 
         #region Constructor
-        public ColumnViewer(int screenWidth, int screenHeight, int columnCount, double heightDistanceRatio, EcholocationCycle echolocationCycle)
+        public ColumnViewer(int screenWidth, int screenHeight, int columnCount, double heightDistanceRatio, EcholocationCycle echolocationCycle, EcholocationBeeper echolocationBeeper)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
@@ -36,6 +38,7 @@ namespace BlindFPS
             this.columnWidthPixel = screenWidth / columnCount;
             this.heightDistanceRatio = heightDistanceRatio;
             this.echolocationCycle = echolocationCycle;
+            this.echolocationBeeper = echolocationBeeper;
 
             this.rectangleCache = new Rectangle[columnCount];
             for (int i = 0; i < columnCount; i++)
@@ -74,6 +77,8 @@ namespace BlindFPS
                     red = Math.Max(0, Math.Min(255, 256 - red));
                     green = Math.Max(0, Math.Min(255, 256 - green));
                     blue = Math.Max(0, Math.Min(255, 256 - blue));
+
+                    this.echolocationBeeper.Beep(straightDistance, columnId, columnCount);
                 }
 
                 surface.Fill(rectangle, Color.FromArgb(255, (byte)(red), (byte)(green), (byte)(blue)));

@@ -60,7 +60,7 @@ namespace BlindFPS
         /// <summary>
         /// Whether we play in full screen
         /// </summary>
-        private const bool isFullScreen = false;
+        private const bool isFullScreen = true;
 
         /// <summary>
         /// Whether we enable sound effects and music
@@ -72,9 +72,9 @@ namespace BlindFPS
         /// </summary>
         private const int echolocationCycleLengthMs = 1000;
 
-        private const bool isEcholocationBounceBack = false;
+        private const bool isEcholocationBounceBack = true;
 
-        private const int echolocationScanPointCount = 2;
+        private const int echolocationScanPointCount = 1;
 
         private const bool isEcholocationMirrorScanPoint = true;
         #endregion
@@ -143,7 +143,7 @@ namespace BlindFPS
         /// <summary>
         /// Background beeper
         /// </summary>
-        private SoundBackgroundBeeper backgroundBeeper;
+        private EcholocationBeeper echolocationBeeper;
         #endregion
 
         #region Constructors
@@ -153,8 +153,7 @@ namespace BlindFPS
 
             idealRayTracerResolution = RayTracer.GetValidResolution(idealRayTracerResolution, screenWidth);
             rayTracer = new RayTracer(idealRayTracerResolution, fov, rayDistanceResolution);
-            backgroundBeeper = new SoundBackgroundBeeper();
-            backgroundBeeper.Play();
+            this.echolocationBeeper = new EcholocationBeeper(new SoundBackgroundBeeper());
 
             world = new World(random, monsterCount);
             ai = new Ai(random,world.SpritePool.Count);
@@ -166,7 +165,7 @@ namespace BlindFPS
                 echolocationScanPointCount,
                 isEcholocationMirrorScanPoint);
 
-            gameViewer = new GameViewer3D(mainSurface, screenWidth, screenHeight, rayTracer.ColumnCount, world.SpritePool, rayTracer.Fov, random, world.Map, isSoundOn, echolocationCycle);
+            gameViewer = new GameViewer3D(mainSurface, screenWidth, screenHeight, rayTracer.ColumnCount, world.SpritePool, rayTracer.Fov, random, world.Map, isSoundOn, echolocationCycle, echolocationBeeper);
             screenCenterPosition = new Point(screenWidth / 2, screenHeight / 2);
         }
         #endregion
@@ -372,8 +371,8 @@ namespace BlindFPS
             short relativeX = mouseEventArgs.RelativeX;
             short relativeY = mouseEventArgs.RelativeY;
 
-            inputState.MouseMotionX = (short)(-relativeX - inputState.RecenterOffsetX);
-            inputState.MouseMotionY = (short)(-relativeY - inputState.RecenterOffsetY);
+            inputState.MouseMotionX = (short)(relativeX - inputState.RecenterOffsetX);
+            inputState.MouseMotionY = (short)(relativeY - inputState.RecenterOffsetY);
 
             Mouse.MousePosition = this.screenCenterPosition;
 

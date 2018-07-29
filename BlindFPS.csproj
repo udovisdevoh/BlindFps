@@ -39,6 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="artificialart, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -69,6 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Echolocation\EcholocationBeeper.cs" />
     <Compile Include="Echolocation\EcholocationCycle.cs" />
     <Compile Include="GameModel\Ai.cs" />
     <Compile Include="GameModel\BattlePhysics.cs" />
