@@ -5,7 +5,7 @@ using System.Text;
 using SdlDotNet.Graphics.Primitives;
 using SdlDotNet.Graphics;
 
-namespace CvmFight
+namespace BlindFPS
 {
     class SpritePrimitiveCache
     {

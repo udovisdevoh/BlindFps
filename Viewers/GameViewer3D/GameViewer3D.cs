@@ -7,7 +7,7 @@ using SdlDotNet.Graphics;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics.Primitives;
 
-namespace CvmFight
+namespace BlindFPS
 {
     class GameViewer3D : AbstractGameViewer
     {
@@ -36,7 +36,7 @@ namespace CvmFight
         #endregion
 
         #region Constructor
-        public GameViewer3D(Surface mainSurface, int screenWidth, int screenHeight, int columnCount, SpritePool spritePool, int fov, Random random, AbstractMap map, bool isSoundOn)
+        public GameViewer3D(Surface mainSurface, int screenWidth, int screenHeight, int columnCount, SpritePool spritePool, int fov, Random random, AbstractMap map, bool isSoundOn, EcholocationCycle echolocationCycle)
         {
             this.mainSurface = mainSurface;
             this.isSoundOn = isSoundOn;
@@ -48,7 +48,7 @@ namespace CvmFight
 
             this.gradient = new Gradient(screenWidth, screenHeight * 2);
 
-            columnViewer = new ColumnViewer(this.screenWidth, this.screenHeight, columnCount, heightDistanceRatio);
+            columnViewer = new ColumnViewer(this.screenWidth, this.screenHeight, columnCount, heightDistanceRatio, echolocationCycle);
         }
         #endregion
 

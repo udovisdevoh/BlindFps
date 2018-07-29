@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CvmFight
+namespace BlindFPS
 {
     abstract class AbstractProjectile : AbstractSprite
     {

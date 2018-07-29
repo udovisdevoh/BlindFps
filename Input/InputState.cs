@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CvmFight
+namespace BlindFPS
 {
     /// <summary>
     /// Which keys and mouse buttons are up or down and mouse position

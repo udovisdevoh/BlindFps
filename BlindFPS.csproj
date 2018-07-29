@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Echolocation\EcholocationCycle.cs" />
     <Compile Include="GameModel\Ai.cs" />
     <Compile Include="GameModel\BattlePhysics.cs" />
     <Compile Include="GameModel\DamageManager.cs" />

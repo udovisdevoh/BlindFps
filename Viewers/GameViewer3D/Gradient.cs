@@ -7,7 +7,7 @@ using SdlDotNet.Graphics;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics.Primitives;
 
-namespace CvmFight
+namespace BlindFPS
 {
     class Gradient
     {

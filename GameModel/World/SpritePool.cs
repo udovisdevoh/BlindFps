@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CvmFight
+namespace BlindFPS
 {
     public class SpritePool : IList<AbstractSprite>
     {

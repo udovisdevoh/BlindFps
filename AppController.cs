@@ -12,7 +12,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace CvmFight
+namespace BlindFPS
 {
     public class AppController
     {
@@ -66,6 +66,17 @@ namespace CvmFight
         /// Whether we enable sound effects and music
         /// </summary>
         private const bool isSoundOn = true;
+
+        /// <summary>
+        /// Echolocation cycle length in milliseconds
+        /// </summary>
+        private const int echolocationCycleLengthMs = 1000;
+
+        private const bool isEcholocationBounceBack = false;
+
+        private const int echolocationScanPointCount = 2;
+
+        private const bool isEcholocationMirrorScanPoint = true;
         #endregion
 
         #region Members
@@ -124,7 +135,10 @@ namespace CvmFight
         /// </summary>
         private Surface mainSurface;
 
-        private bool isCurrentlyCentering = false;
+        /// <summary>
+        /// Echolocation cycle
+        /// </summary>
+        private EcholocationCycle echolocationCycle;
         #endregion
 
         #region Constructors
@@ -138,7 +152,14 @@ namespace CvmFight
             world = new World(random, monsterCount);
             ai = new Ai(random,world.SpritePool.Count);
 
-            gameViewer = new GameViewer3D(mainSurface, screenWidth, screenHeight, rayTracer.ColumnCount, world.SpritePool, rayTracer.Fov, random, world.Map, isSoundOn);
+            this.echolocationCycle = new EcholocationCycle(targetFps,
+                echolocationCycleLengthMs,
+                idealRayTracerResolution,
+                isEcholocationBounceBack,
+                echolocationScanPointCount,
+                isEcholocationMirrorScanPoint);
+
+            gameViewer = new GameViewer3D(mainSurface, screenWidth, screenHeight, rayTracer.ColumnCount, world.SpritePool, rayTracer.Fov, random, world.Map, isSoundOn, echolocationCycle);
             screenCenterPosition = new Point(screenWidth / 2, screenHeight / 2);
         }
         #endregion
@@ -165,6 +186,8 @@ namespace CvmFight
             //We process the time multiplicator
             double timeDelta = ((TimeSpan)(DateTime.Now - previousFrameTime)).TotalMilliseconds / 16.0;
             previousFrameTime = DateTime.Now;
+
+            echolocationCycle.IncrementFrame();
 
             //We clear the sprite's shared consciousness because sprite positions changed
             world.SharedConsciousness.Clear();

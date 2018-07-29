@@ -5,7 +5,7 @@ using System.Text;
 using ArtificialArt.Waves;
 using Waves;
 
-namespace CvmFight
+namespace BlindFPS
 {
     class ColorMap
     {

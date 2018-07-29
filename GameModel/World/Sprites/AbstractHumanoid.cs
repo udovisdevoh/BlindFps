@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SdlDotNet.Audio;
 
-namespace CvmFight
+namespace BlindFPS
 {
     /// <summary>
     /// Abstract sprite

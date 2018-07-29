@@ -7,7 +7,7 @@ using SdlDotNet.Graphics;
 using SdlDotNet.Core;
 using SdlDotNet.Graphics.Primitives;
 
-namespace CvmFight
+namespace BlindFPS
 {
     class ColumnViewer
     {
@@ -23,16 +23,19 @@ namespace CvmFight
         private double heightDistanceRatio = 2;
 
         private Rectangle[] rectangleCache;
+
+        private EcholocationCycle echolocationCycle;
         #endregion
 
         #region Constructor
-        public ColumnViewer(int screenWidth, int screenHeight, int columnCount, double heightDistanceRatio)
+        public ColumnViewer(int screenWidth, int screenHeight, int columnCount, double heightDistanceRatio, EcholocationCycle echolocationCycle)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
             this.columnCount = columnCount;
             this.columnWidthPixel = screenWidth / columnCount;
             this.heightDistanceRatio = heightDistanceRatio;
+            this.echolocationCycle = echolocationCycle;
 
             this.rectangleCache = new Rectangle[columnCount];
             for (int i = 0; i < columnCount; i++)
@@ -65,6 +68,13 @@ namespace CvmFight
                 double red, green, blue;
 
                 map.GetColors(rayTracer[columnId].X, rayTracer[columnId].Y, brightness, out red, out green, out blue);
+                
+                if (echolocationCycle.IsHighlightedColumn(columnId))
+                {
+                    red = Math.Max(0, Math.Min(255, 256 - red));
+                    green = Math.Max(0, Math.Min(255, 256 - green));
+                    blue = Math.Max(0, Math.Min(255, 256 - blue));
+                }
 
                 surface.Fill(rectangle, Color.FromArgb(255, (byte)(red), (byte)(green), (byte)(blue)));
             }

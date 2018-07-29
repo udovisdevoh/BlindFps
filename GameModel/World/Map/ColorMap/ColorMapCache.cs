@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using ArtificialArt.Waves;
 
-namespace CvmFight
+namespace BlindFPS
 {
     class ColorMapCache
     {
