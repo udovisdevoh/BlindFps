@@ -139,6 +139,11 @@ namespace BlindFPS
         /// Echolocation cycle
         /// </summary>
         private EcholocationCycle echolocationCycle;
+
+        /// <summary>
+        /// Background beeper
+        /// </summary>
+        private SoundBackgroundBeeper backgroundBeeper;
         #endregion
 
         #region Constructors
@@ -148,6 +153,8 @@ namespace BlindFPS
 
             idealRayTracerResolution = RayTracer.GetValidResolution(idealRayTracerResolution, screenWidth);
             rayTracer = new RayTracer(idealRayTracerResolution, fov, rayDistanceResolution);
+            backgroundBeeper = new SoundBackgroundBeeper();
+            backgroundBeeper.Play();
 
             world = new World(random, monsterCount);
             ai = new Ai(random,world.SpritePool.Count);
