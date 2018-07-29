@@ -55,9 +55,6 @@ namespace CvmFight
                 }
             }
 
-
-
-
             double xMove = Math.Cos(angleRadian) * rayDistanceResolution;
             double yMove = Math.Sin(angleRadian) * rayDistanceResolution;
 

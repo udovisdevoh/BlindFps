@@ -30,7 +30,7 @@ namespace CvmFight
         /// <summary>
         /// How many columns in ray tracer
         /// </summary>
-        private static int idealRayTracerResolution = 320;
+        private static int idealRayTracerResolution = 360;
 
         /// <summary>
         /// Minimum resolution of ray tracer's distance's unit size
@@ -123,6 +123,8 @@ namespace CvmFight
         /// Surface on which we draw the game's graphics
         /// </summary>
         private Surface mainSurface;
+
+        private bool isCurrentlyCentering = false;
         #endregion
 
         #region Constructors
@@ -337,13 +339,16 @@ namespace CvmFight
 
         private void OnMouseMotion(object sender, MouseMotionEventArgs mouseEventArgs)
         {
-            short relativeX = mouseEventArgs.RelativeX;// (short)(inputState.CurrentX - mouseEventArgs.X);
-            short relativeY = mouseEventArgs.RelativeY;// (short)(inputState.CurrentY - mouseEventArgs.Y);
+            short relativeX = mouseEventArgs.RelativeX;
+            short relativeY = mouseEventArgs.RelativeY;
 
-            inputState.MouseMotionX = relativeX;
-            inputState.MouseMotionY = relativeY;
+            inputState.MouseMotionX = (short)(-relativeX - inputState.RecenterOffsetX);
+            inputState.MouseMotionY = (short)(-relativeY - inputState.RecenterOffsetY);
 
             Mouse.MousePosition = this.screenCenterPosition;
+
+            inputState.RecenterOffsetX = (Mouse.MousePosition.X - this.screenCenterPosition.X);
+            inputState.RecenterOffsetY = (Mouse.MousePosition.Y - this.screenCenterPosition.Y);
         }
 
         public void OnMouseDown(object sender, MouseButtonEventArgs args)
