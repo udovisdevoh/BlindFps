@@ -20,17 +20,23 @@ namespace BlindFPS
             byte left = this.GetLeftPanning(columnId, totalColumns);
             byte right = this.GetRightPanning(columnId, totalColumns);
 
-            int frequency = (int)Math.Round(1000.0 / distance);
+            left = Math.Min((byte)128, left);
+            right = Math.Min((byte)128, right);
 
-            this.soundBackgroundBeeper.Play(frequency, left, right);
+            int frequency = (int)Math.Round(2000.0 / distance);
+            //int frequency = (int)Math.Round(2000 * distance);
+
+            byte volume = 255;//(byte)Math.Min(255, Math.Max(0, Math.Round(20 / distance)));
+
+            this.soundBackgroundBeeper.Play(frequency, volume, left, right);
         }
 
-        private byte GetLeftPanning(int columnId, int totalColumns)
+        private byte GetRightPanning(int columnId, int totalColumns)
         {
             return (byte)Math.Min(255, Math.Max(0, (Math.Abs(0 - columnId) * 255 / totalColumns)));
         }
 
-        private byte GetRightPanning(int columnId, int totalColumns)
+        private byte GetLeftPanning(int columnId, int totalColumns)
         {
             return (byte)Math.Min(255, Math.Max(0, (Math.Abs(totalColumns - columnId) * 255 / totalColumns)));
         }

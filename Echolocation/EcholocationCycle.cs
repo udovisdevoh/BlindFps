@@ -11,7 +11,7 @@ namespace BlindFPS
         #region Members
         private int totalFrameCount;
 
-        private int columnFrameCount;
+        private int columnWidth;
 
         private int totalColumnCount;
 
@@ -26,6 +26,9 @@ namespace BlindFPS
         private bool isCurrenlyMovingForward = true;
 
         private bool isMirrorScanPoint;
+
+        private Random random = new Random();
+        //private int columnOffset = 0;
         #endregion
 
         #region Constructors
@@ -34,11 +37,18 @@ namespace BlindFPS
             int rayTraceResolution,
             bool isBounceBack,
             int scanPointCount,
-            bool isMirrorScanPoint)
+            bool isMirrorScanPoint,
+            double fieldOfViewRatio)
         {
-            this.totalFrameCount = cycleLengthMs * frameRate / 1000;
-            this.columnFrameCount = this.totalFrameCount / rayTraceResolution;
             this.totalColumnCount = rayTraceResolution;
+            /*if (fieldOfViewRatio != 1.0)
+            {
+                this.totalColumnCount = Math.Min(this.totalColumnCount, (int)Math.Round((double)this.totalColumnCount * (double)fieldOfViewRatio));
+                this.columnOffset = (rayTraceResolution - this.totalColumnCount) / 2;
+            }*/
+
+            this.totalFrameCount = cycleLengthMs * frameRate / 1000;
+            this.columnWidth = (this.totalColumnCount / this.totalFrameCount) / scanPointCount;
             this.isBounceBack = isBounceBack;
             this.scanPointCount = scanPointCount;
             this.isMirrorScanPoint = isMirrorScanPoint;
@@ -77,6 +87,24 @@ namespace BlindFPS
 
         public bool IsHighlightedColumn(int columnId)
         {
+            /*
+            columnId -= this.columnOffset;
+
+            if (columnId > this.totalColumnCount)
+            {
+                return false;
+            }
+            else if (columnId < 0)
+            {
+                return false;
+            }*/
+
+            /*
+            columnId += random.Next(0, this.columnWidth) - this.columnWidth / 2;
+            columnId = Math.Min(columnId, this.totalColumnCount - 1);
+            columnId = Math.Max(columnId, 0);*/
+
+
             columnId = columnId * this.scanPointCount;
 
             bool isOdd = true;

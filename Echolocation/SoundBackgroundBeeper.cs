@@ -45,11 +45,19 @@ namespace BlindFPS
             }
         }
 
-        public void Play(int frequency, byte left, byte right)
+        public void Play(int frequency, byte volume, byte left, byte right)
         {
             frequency = this.GetClosestAvailableFrequency(frequency);
-            Channel channel = this.sounds[frequency].Play();
-            channel.SetPanning(left, right);
+            try
+            {
+                Channel channel = this.sounds[frequency].Play();
+                channel.SetPanning(left, right);
+                channel.Volume = volume;
+            }
+            catch (Exception)
+            {
+                // Nothing
+            }
         }
 
         private int GetClosestAvailableFrequency(int desiredFrequency)

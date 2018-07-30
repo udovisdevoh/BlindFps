@@ -70,7 +70,7 @@ namespace BlindFPS
         /// <summary>
         /// Echolocation cycle length in milliseconds
         /// </summary>
-        private const int echolocationCycleLengthMs = 1000;
+        private const int echolocationCycleLengthMs = 500;
 
         private const bool isEcholocationBounceBack = true;
 
@@ -163,7 +163,8 @@ namespace BlindFPS
                 idealRayTracerResolution,
                 isEcholocationBounceBack,
                 echolocationScanPointCount,
-                isEcholocationMirrorScanPoint);
+                isEcholocationMirrorScanPoint,
+                1.0);
 
             gameViewer = new GameViewer3D(mainSurface, screenWidth, screenHeight, rayTracer.ColumnCount, world.SpritePool, rayTracer.Fov, random, world.Map, isSoundOn, echolocationCycle, echolocationBeeper);
             screenCenterPosition = new Point(screenWidth / 2, screenHeight / 2);
